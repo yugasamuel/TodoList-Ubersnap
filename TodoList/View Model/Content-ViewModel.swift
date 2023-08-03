@@ -36,6 +36,13 @@ extension ContentView {
             save()
         }
         
+        func deleteTask(indexSet: IndexSet) {
+            guard let index = indexSet.first else { return }
+            let task = tasks[index]
+            dataController.context.delete(task)
+            save()
+        }
+        
         func save() {
             dataController.saveData()
             fetchTasks()

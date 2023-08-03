@@ -20,6 +20,9 @@ struct ContentView: View {
                         Text("Due date: \(task.wrappedDueDate)")
                     }
                 }
+                .onDelete { indexSet in
+                    viewModel.deleteTask(indexSet: indexSet)
+                }
             }
             .navigationTitle("Todo List")
             .toolbar {
