@@ -24,10 +24,13 @@ struct ContentView: View {
             .navigationTitle("Todo List")
             .toolbar {
                 Button(action: {
-                    viewModel.addNewTask()
+                    viewModel.isAdding = true
                 }, label: {
                     Image(systemName: "plus")
                 })
+            }
+            .sheet(isPresented: $viewModel.isAdding) {
+                AddTaskView() { newTask in }
             }
         }
     }

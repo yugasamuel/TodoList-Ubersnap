@@ -11,6 +11,7 @@ import CoreData
 extension ContentView {
     @MainActor class ViewModel: ObservableObject {
         @Published var tasks = [TaskEntity]()
+        @Published var isAdding = false
         let dataController = DataController.instance
         
         init() {
