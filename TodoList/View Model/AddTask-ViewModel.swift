@@ -7,16 +7,8 @@
 
 import Foundation
 
-struct Task {
-    var id = UUID()
-    let title: String
-    let desc: String
-    let dueDate: Date
-}
-
 extension AddTaskView {
     @MainActor class ViewModel: ObservableObject {
-        let dataController = DataController.instance
         @Published var title = ""
         @Published var desc = ""
         @Published var dueDate = Date.now

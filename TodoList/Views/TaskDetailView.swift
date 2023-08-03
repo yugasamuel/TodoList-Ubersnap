@@ -9,20 +9,18 @@ import SwiftUI
 
 struct TaskDetailView: View {
     let task: TaskEntity
-    @State private var title = ""
-    @State private var desc = ""
-    @State private var dueDate = Date.now
+    var onSave: (Task) -> Void
+    @StateObject var viewModel: ViewModel
     
-    init(task: TaskEntity) {
+    init(task: TaskEntity, onSave: @escaping (Task) -> Void) {
         self.task = task
+        self.onSave = onSave
         
-        _title = State(initialValue: task.wrappedTitle)
-        _desc = State(initialValue: task.wrappedDesc)
-        _dueDate = State(initialValue: task.dueDate ?? Date.now)
+        _viewModel = StateObject(wrappedValue: ViewModel(task: task))
     }
     
     var formIsValid: Bool {
-        if title.isEmpty || desc.isEmpty {
+        if viewModel.title.isEmpty || viewModel.desc.isEmpty {
             return false
         } else {
             return true
@@ -32,10 +30,10 @@ struct TaskDetailView: View {
     var body: some View {
         Form {
             Section {
-                TextField("Title", text: $title)
+                TextField("Title", text: $viewModel.title)
                 DatePicker(
                     "Due Date",
-                    selection: $dueDate,
+                    selection: $viewModel.dueDate,
                     in: DateRange.value,
                     displayedComponents: [.date, .hourAndMinute]
                 )
@@ -43,11 +41,12 @@ struct TaskDetailView: View {
             }
             
             Section("Task description") {
-                TextEditor(text: $desc)
+                TextEditor(text: $viewModel.desc)
             }
             
             Button("Save changes") {
-
+                let newTask = viewModel.addNewTask()
+                onSave(newTask)
             }
             .disabled(!formIsValid)
         }
@@ -60,6 +59,6 @@ struct TaskDetailView_Previews: PreviewProvider {
     static let task = TaskEntity(context: dataController.context)
     
     static var previews: some View {
-        TaskDetailView(task: task)
+        TaskDetailView(task: task) { newTask in }
     }
 }

@@ -28,7 +28,9 @@ struct ContentView: View {
             }
             .navigationTitle("Todo List")
             .navigationDestination(for: TaskEntity.self) { task in
-                TaskDetailView(task: task)
+                TaskDetailView(task: task) { newTask in
+                    
+                }
             }
             .toolbar {
                 Button(action: {
