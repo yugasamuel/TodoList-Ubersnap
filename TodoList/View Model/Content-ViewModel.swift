@@ -43,6 +43,13 @@ extension ContentView {
             save()
         }
         
+        func updateTask(update taskEntity: TaskEntity, withPropertiesOf task: Task) {
+            taskEntity.title = task.title
+            taskEntity.desc = task.desc
+            taskEntity.dueDate = task.dueDate
+            save()
+        }
+        
         func save() {
             dataController.saveData()
             fetchTasks()

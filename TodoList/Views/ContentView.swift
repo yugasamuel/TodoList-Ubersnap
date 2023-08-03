@@ -29,7 +29,7 @@ struct ContentView: View {
             .navigationTitle("Todo List")
             .navigationDestination(for: TaskEntity.self) { task in
                 TaskDetailView(task: task) { newTask in
-                    
+                    viewModel.updateTask(update: task, withPropertiesOf: newTask)
                 }
             }
             .toolbar {
