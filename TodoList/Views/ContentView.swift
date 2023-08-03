@@ -14,10 +14,12 @@ struct ContentView: View {
         NavigationStack {
             List {
                 ForEach(viewModel.tasks) { task in
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text(task.wrappedTitle)
-                            .font(.headline)
-                        Text("Due date: \(task.wrappedDueDate)")
+                    NavigationLink(value: task) {
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text(task.wrappedTitle)
+                                .font(.headline)
+                            Text("Due date: \(task.wrappedDueDate)")
+                        }
                     }
                 }
                 .onDelete { indexSet in
@@ -25,6 +27,9 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Todo List")
+            .navigationDestination(for: TaskEntity.self) { task in
+                TaskDetailView(task: task)
+            }
             .toolbar {
                 Button(action: {
                     viewModel.isAdding = true
