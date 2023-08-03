@@ -34,7 +34,7 @@ extension TaskEntity {
     }
     
     var wrappedDueDate: String {
-        dueDate?.formatted(date: .abbreviated, time: .omitted) ?? Date.now.formatted(date: .abbreviated, time: .omitted)
+        dueDate?.formatted(date: .abbreviated, time: .shortened) ?? Date.now.formatted(date: .abbreviated, time: .shortened)
     }
 
 }

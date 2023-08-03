@@ -8,14 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel = ViewModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationStack {
+            List {
+                ForEach(viewModel.tasks) { task in
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(task.wrappedTitle)
+                            .font(.headline)
+                        Text("Due date: \(task.wrappedDueDate)")
+                    }
+                }
+            }
+            .navigationTitle("Todo List")
+            .toolbar {
+                Button(action: {
+                    viewModel.addNewTask()
+                }, label: {
+                    Image(systemName: "plus")
+                })
+            }
         }
-        .padding()
     }
 }
 
