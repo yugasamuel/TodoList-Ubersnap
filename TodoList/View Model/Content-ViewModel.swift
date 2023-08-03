@@ -27,8 +27,12 @@ extension ContentView {
             }
         }
         
-        func addNewTask() {
-            _ = TaskEntity(context: dataController.context)
+        func addNewTask(task: Task) {
+            let newTask = TaskEntity(context: dataController.context)
+            newTask.id = task.id
+            newTask.title = task.title
+            newTask.desc = task.desc
+            newTask.dueDate = task.dueDate
             save()
         }
         

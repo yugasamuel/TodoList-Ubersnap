@@ -10,7 +10,7 @@ import SwiftUI
 struct AddTaskView: View {
     @StateObject var viewModel = ViewModel()
     @Environment(\.dismiss) var dismiss
-    var onSave: (TaskEntity) -> Void
+    var onSave: (Task) -> Void
     
     let dateRange: ClosedRange<Date> = {
         let calendar = Calendar.current

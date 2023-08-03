@@ -30,7 +30,9 @@ struct ContentView: View {
                 })
             }
             .sheet(isPresented: $viewModel.isAdding) {
-                AddTaskView() { newTask in }
+                AddTaskView() { newTask in
+                    viewModel.addNewTask(task: newTask)
+                }
             }
         }
     }

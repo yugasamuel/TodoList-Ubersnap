@@ -7,6 +7,13 @@
 
 import Foundation
 
+struct Task {
+    var id = UUID()
+    let title: String
+    let desc: String
+    let dueDate: Date
+}
+
 extension AddTaskView {
     @MainActor class ViewModel: ObservableObject {
         let dataController = DataController.instance
@@ -14,11 +21,8 @@ extension AddTaskView {
         @Published var desc = ""
         @Published var dueDate = Date.now
         
-        func addNewTask() -> TaskEntity {
-            let newTask = TaskEntity(context: dataController.context)
-            newTask.title = title
-            newTask.desc = desc
-            newTask.dueDate = dueDate
+        func addNewTask() -> Task {
+            let newTask = Task(title: title, desc: desc, dueDate: dueDate)
             return newTask
         }
     }
