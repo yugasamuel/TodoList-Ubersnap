@@ -11,6 +11,7 @@ struct TaskDetailView: View {
     let task: TaskEntity
     var onSave: (Task) -> Void
     @StateObject var viewModel: ViewModel
+    @Environment(\.dismiss) var dismiss
     
     init(task: TaskEntity, onSave: @escaping (Task) -> Void) {
         self.task = task
@@ -37,7 +38,6 @@ struct TaskDetailView: View {
                     in: DateRange.value,
                     displayedComponents: [.date, .hourAndMinute]
                 )
-                
             }
             
             Section("Task description") {
@@ -47,6 +47,7 @@ struct TaskDetailView: View {
             Button("Save changes") {
                 let newTask = viewModel.addNewTask()
                 onSave(newTask)
+                dismiss()
             }
             .disabled(!formIsValid)
         }

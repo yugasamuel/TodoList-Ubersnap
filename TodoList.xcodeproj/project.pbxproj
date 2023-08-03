@@ -117,10 +117,10 @@
 		6503BF8D2A7C04FE0073ED01 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
-				6503BF832A7C003F0073ED01 /* DataController.swift */,
 				6503BF8A2A7C01CA0073ED01 /* Content-ViewModel.swift */,
 				6503BF902A7C0EB50073ED01 /* AddTask-ViewModel.swift */,
 				6503BF972A7C1F5C0073ED01 /* TaskDetail-ViewModel.swift */,
+				6503BF832A7C003F0073ED01 /* DataController.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
