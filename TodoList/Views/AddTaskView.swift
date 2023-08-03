@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct AddTaskView: View {
-    @State private var title = ""
-    @State private var desc = ""
-    @State private var dueDate = Date.now
+    @StateObject var viewModel = ViewModel()
     @Environment(\.dismiss) var dismiss
     var onSave: (TaskEntity) -> Void
     
@@ -33,7 +31,7 @@ struct AddTaskView: View {
     }()
     
     var formIsValid: Bool {
-        if title.isEmpty || desc.isEmpty {
+        if viewModel.title.isEmpty || viewModel.desc.isEmpty {
             return false
         } else {
             return true
@@ -43,10 +41,10 @@ struct AddTaskView: View {
     var body: some View {
         Form {
             Section {
-                TextField("Title", text: $title)
+                TextField("Title", text: $viewModel.title)
                 DatePicker(
                     "Due Date",
-                    selection: $dueDate,
+                    selection: $viewModel.dueDate,
                     in: dateRange,
                     displayedComponents: [.date, .hourAndMinute]
                 )
@@ -54,11 +52,13 @@ struct AddTaskView: View {
             }
             
             Section("Task description") {
-                TextEditor(text: $desc)
+                TextEditor(text: $viewModel.desc)
             }
             
             Button("Save") {
-                
+                let newTask = viewModel.addNewTask()
+                onSave(newTask)
+                dismiss()
             }
             .disabled(!formIsValid)
         }
